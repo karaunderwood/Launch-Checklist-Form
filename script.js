@@ -5,6 +5,7 @@ window.addEventListener("load" , function() {
    let form = document.querySelector("form");
    form.addEventListener("submit", function(event) {
 
+      // Most of my DOM elements
       let pilotName = document.querySelector("input[name=pilotName]");
       let copilotName = document.querySelector("input[name=copilotName]");
       let fuelLevel = document.querySelector("input[name=fuelLevel]");
@@ -25,8 +26,8 @@ window.addEventListener("load" , function() {
 
       // Making sure the pilot name and co-pilot name input values are strings
       if (isNaN(pilotName.value) || isNaN(copilotName.value)){
-         pilotStatus.innerHTML = `Pilot ${pilotName.value} Ready`;
-         copilotStatus.innerHTML = `Co-pilot ${copilotName.value} Ready`;
+         pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready`;
+         copilotStatus.innerHTML = `Co-pilot ${copilotName.value} is ready`;
       }
       else{
          alert("Pilot & Co-pilot need to be human names, not integers!");
@@ -38,10 +39,9 @@ window.addEventListener("load" , function() {
          alert("Fuel level & cargo mass need to be integers!");
          event.preventDefault();
       }
-      else{ // If the fuel level and cargo mass ARE integers, make these checks below
+      else{ // If the fuel level and cargo mass are integers, make these checks below
 
-         console.log(fuelLevel.value);
-         if(fuelLevel.value < 10000){
+         if(fuelLevel.value < 10000){ // Is the fuelLevel value below 10,000?
             faultyItems.style.visibility = 'visible';
             fuelStatus.innerHTML = `Fuel level too low for the journey!`;
             launchStatus.innerHTML = `Shuttle not ready for launch`;
@@ -51,9 +51,9 @@ window.addEventListener("load" , function() {
             fuelStatus.innerHTML = `Fuel level high enough for launch`;
          }
 
-         if(cargoMass.value > 10000){ 
+         if(cargoMass.value > 10000){  // Is the cargoMass above 10,000?
             faultyItems.style.visibility = 'visible';
-            cargoStatus.innerHTML = `Cargo mass too heavy for the shuttle to take off!`; //this doesnt seem to be working?
+            cargoStatus.innerHTML = `Cargo mass too heavy for the shuttle to take off!`;
             launchStatus.innerHTML = `Shuttle not ready for launch`;
             launchStatus.style.color = 'red';
          }else{
@@ -61,7 +61,7 @@ window.addEventListener("load" , function() {
             cargoStatus.innerHTML = `Cargo mass low enough for launch`;
          }
 
-         if(fuelLevel.value >= 10000 && cargoMass.value <= 10000) {
+         if(fuelLevel.value >= 10000 && cargoMass.value <= 10000) { // If the fuelLevel is equal to or above 10,000 AND cargoMass is equal to or below 10,000, execute this code 
             faultyItems.style.visibility = 'visible';
             launchStatus.innerHTML = `Shuttle is ready for launch`;
             launchStatus.style.color = 'green';
@@ -69,9 +69,9 @@ window.addEventListener("load" , function() {
             cargoStatus.innerHTML = `Cargo mass low enough for launch`;
          }
 
-
       }
 
+      // Fetching a json
       fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
          response.json().then(function(json){
             const missionTarget = document.getElementById('missionTarget');
